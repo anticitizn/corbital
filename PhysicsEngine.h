@@ -34,8 +34,9 @@ private:
 		{
 			for (Entity& e2 : Entities)
 			{
-				if (&e1 != &e2 && e1.PhysicsEnabled && e2.PhysicsEnabled)
+				if (&e1 != &e2 && e1.PhysicsEnabled && e2.PhysicsEnabled && e2.Mass > massThreshold && e2.pullsOtherBodies)
 				{
+					// give it a more sensible name
 					int a = 5; // fGrav hard limit, to prevent singularities
 
 					Vector4d direction = e2.Pos - e1.Pos;
@@ -68,7 +69,9 @@ private:
 	}
 
 public:
+	double massThreshold = 0;
 	vector<Entity> Entities;
+	
 	PhysicsEngine()
 	{
 		Simspeed(5.0);

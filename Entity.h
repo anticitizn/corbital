@@ -61,4 +61,5 @@ public:
 	Vector3d Color;
 	char Symbol;
 	bool PhysicsEnabled;
+	bool pullsOtherBodies = true;
 };

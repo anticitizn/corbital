@@ -26,13 +26,10 @@ public:
 
 	void Draw()
 	{
-		for (Entity& e : physen.Entities)
+		for (TrailPoint& tp : Trails)
 		{
-			for (TrailPoint& tp : Trails)
-			{
-				window.setChar(round(tp.Pos.x() / scale) - xoffset, round(tp.Pos.y() / scale) - yoffset, '.');
-				window.setColor(round(tp.Pos.x() / scale) - xoffset, round(tp.Pos.y() / scale) - yoffset, tp.Color.x(), tp.Color.y(), tp.Color.z());
-			}
+			window.setChar(round(tp.Pos.x() / scale) - xoffset, round(tp.Pos.y() / scale) - yoffset, '.');
+			window.setColor(round(tp.Pos.x() / scale) - xoffset, round(tp.Pos.y() / scale) - yoffset, tp.Color.x(), tp.Color.y(), tp.Color.z());
 		}
 
 		for (Entity& e : physen.Entities)
@@ -42,7 +39,7 @@ public:
 			window.setColor(round(e.Pos.x() / scale) - xoffset, round(e.Pos.y() / scale) - yoffset, e.Color.x(), e.Color.y(), e.Color.z());
 			// cout << e.Name << ' ' << round(e.Pos.x() / scale) - xoffset << ' ' << round(e.Pos.y() / scale) - yoffset << endl;
 		}
-		window.setColor(3, 3, 255, 255, 255);
+		
 		window.draw();
 		window.clear();
 	}
@@ -123,7 +120,7 @@ private:
 	{
 		for (Entity& e : physen.Entities)
 		{
-			if (Trails.size() > 250 * physen.Entities.size())
+			if (Trails.size() > 100 * physen.Entities.size())
 			{
 				Trails.erase(Trails.begin(), Trails.begin() + physen.Entities.size());
 			}
