@@ -19,6 +19,7 @@ public:
 	void Tick()
 	{
 		physen.Tick();
+		//~ camera.Pos = Vector4d(physen.Entities[1].Pos.x() - camera.Scale * 92, physen.Entities[1].Pos.y() - camera.Scale * 50, 0, 0);
 		CalculateTrails();
 		Draw();
 	}
@@ -65,7 +66,7 @@ public:
 
 	void OnClick(const int& x, const int& y)
 	{
-		//cout << "OnClick: " << x << ' ' << y << endl;
+		cout << "OnClick: " << x << ' ' << y << ' ' << (x / 10) * camera.Scale + camera.Pos.x() << endl;
 		if (entityPlacementMode == false)
 		{
 			entityPlacementMode = true;
@@ -74,8 +75,10 @@ public:
 			newEntity.PhysicsEnabled = false;
 			newEntity.Velocity = Vector4d();
 			
+			// temporarily disabled
 			// replace the 10s with window.tileSize
 			//~ newEntity.Pos = Vector4d(((long long)x / 10 + xoffset) * (long long)scale, ((long long)y / 10 + yoffset)* (long long)scale, 0, 0);
+			newEntity.Pos = Vector4d((x / 10) * camera.Scale + camera.Pos.x(), (y / 10) * camera.Scale + camera.Pos.y(), 0, 0);
 			physen.Entities.push_back(newEntity);
 
 			lastClickPosX = x;

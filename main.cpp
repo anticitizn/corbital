@@ -43,19 +43,19 @@ void processInput(SDL_Event event, SimulationWrapper& sim)
 					break;
 					
 					case 119: // w
-						sim.camera.Pos = Vector4d(sim.camera.Pos.x(), sim.camera.Pos.y() - sim.camera.Scale / 10, 0, 0);
+						sim.camera.Pos = Vector4d(sim.camera.Pos.x(), sim.camera.Pos.y() - sim.camera.Scale, 0, 0);
 					break;
 					
 					case 97: // a
-						sim.camera.Pos = Vector4d(sim.camera.Pos.x() - sim.camera.Scale / 10, sim.camera.Pos.y(), 0, 0);
+						sim.camera.Pos = Vector4d(sim.camera.Pos.x() - sim.camera.Scale, sim.camera.Pos.y(), 0, 0);
 					break;
 					
 					case 115: // s
-						sim.camera.Pos = Vector4d(sim.camera.Pos.x(), sim.camera.Pos.y() + sim.camera.Scale / 10, 0, 0);
+						sim.camera.Pos = Vector4d(sim.camera.Pos.x(), sim.camera.Pos.y() + sim.camera.Scale, 0, 0);
 					break;
 						
 					case 100: // d
-						sim.camera.Pos = Vector4d(sim.camera.Pos.x() + sim.camera.Scale / 10, sim.camera.Pos.y(), 0, 0);
+						sim.camera.Pos = Vector4d(sim.camera.Pos.x() + sim.camera.Scale, sim.camera.Pos.y(), 0, 0);
 					break;
 				}
 			break;

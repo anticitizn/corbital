@@ -7,6 +7,6 @@ using namespace std;
 class Camera
 {
 public:
-	Vector4d Pos;
-	double Scale;
+	Vector4d Pos; // world pos
+	double Scale; // how many km one tile represents
 };

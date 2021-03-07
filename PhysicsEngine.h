@@ -94,8 +94,23 @@ public:
 		Entity Jupiter("Jupiter", Sun.Pos + Vector4d(816e+6f, 0, 0, 0), Vector4d(0, 12.44f, 0, 0), 1898e+12, 'j', Vector3d(199, 162, 42));
 		Entities.push_back(Jupiter);
 
-		//Entity Saturn("Saturn", Sun.Pos + Vector4d(1514e+6f, 0, 0, 0), Vector4d(0, 9.09f, 0, 0), 568e+12, 's', Vector4d(214, 187, 101));
-		//Entities.push_back(Saturn);
+		//~ Entity Saturn("Saturn", Sun.Pos + Vector4d(1514e+6f, 0, 0, 0), Vector4d(0, 9.09f, 0, 0), 568e+12, 's', Vector4d(214, 187, 101));
+		//~ Entities.push_back(Saturn);
+		
+		//~ for (int i = 0; i < 192; i++)
+		//~ {
+			//~ Entity Test("Test", Vector4d(100 * i + 1, 0, 0, 0), Vector4d(0, 0, 0, 0), 100, 'a', Vector3d(230, 100, 100));
+			//~ Test.PhysicsEnabled = false;
+			//~ Entities.push_back(Test);
+		//~ }
+		
+		//~ Entity Test1("Test1", Vector4d(26875000 * 300, 0, 0, 0), Vector4d(0, 0, 0, 0), 100, 'O', Vector3d(255, 255, 255));
+		//~ Test1.PhysicsEnabled = false;
+		//~ Entities.push_back(Test1);
+		
+		//~ Entity Test2("Test2", Vector4d(10000000, 0, 0, 0), Vector4d(0, 0, 0, 0), 100, '2', Vector3d(255, 100, 100));
+		//~ Test2.PhysicsEnabled = false;
+		//~ Entities.push_back(Test2);
 
 	}
 
