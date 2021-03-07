@@ -1,20 +1,19 @@
 #pragma once
+
 #include "PhysicsEngine.h"
+#include "Camera.h"
 #include "external/omar/omar.h"
 #include <math.h>
 
 class SimulationWrapper
 {
 public:
+	Camera camera;
 	SimulationWrapper()
 	{
 		window.initialize(10.0f, ' ');
-	}
-	
-	SimulationWrapper(PhysicsEngine Physen, Terminal Window)
-	{
-		physen = Physen;
-		window = Window;
+		camera.Scale = 10000000;
+		camera.Pos = Vector4d(physen.Entities[0].Pos.x() / 1.2, physen.Entities[0].Pos.y() / 1.2, 0, 0);
 	}
 
 	void Tick()
@@ -28,15 +27,15 @@ public:
 	{
 		for (TrailPoint& tp : Trails)
 		{
-			window.setChar(round(tp.Pos.x() / scale) - xoffset, round(tp.Pos.y() / scale) - yoffset, '.');
-			window.setColor(round(tp.Pos.x() / scale) - xoffset, round(tp.Pos.y() / scale) - yoffset, tp.Color.x(), tp.Color.y(), tp.Color.z());
+			window.setChar(round((tp.Pos.x() - camera.Pos.x()) / camera.Scale), round((tp.Pos.y() - camera.Pos.y()) / camera.Scale), '.');
+			window.setColor(round((tp.Pos.x() - camera.Pos.x()) / camera.Scale), round((tp.Pos.y() - camera.Pos.y()) / camera.Scale), tp.Color.x(), tp.Color.y(), tp.Color.z());
 		}
 
 		for (Entity& e : physen.Entities)
 		{
 			// TO-DO: automate x and y offsets so that the camera always starts with the sun in the center
-			window.setChar(round(e.Pos.x() / scale) - xoffset, round(e.Pos.y() / scale) - yoffset, e.Symbol);
-			window.setColor(round(e.Pos.x() / scale) - xoffset, round(e.Pos.y() / scale) - yoffset, e.Color.x(), e.Color.y(), e.Color.z());
+			window.setChar(round((e.Pos.x() - camera.Pos.x()) / camera.Scale), round((e.Pos.y() - camera.Pos.y()) / camera.Scale), e.Symbol);
+			window.setColor(round((e.Pos.x() - camera.Pos.x()) / camera.Scale), round((e.Pos.y() - camera.Pos.y()) / camera.Scale), e.Color.x(), e.Color.y(), e.Color.z());
 			// cout << e.Name << ' ' << round(e.Pos.x() / scale) - xoffset << ' ' << round(e.Pos.y() / scale) - yoffset << endl;
 		}
 		
@@ -74,7 +73,9 @@ public:
 			newEntity = selectedEntity;
 			newEntity.PhysicsEnabled = false;
 			newEntity.Velocity = Vector4d();
-			newEntity.Pos = Vector4d(((long long)x / 10 + xoffset) * (long long)scale, ((long long)y / 10 + yoffset)* (long long)scale, 0, 0);
+			
+			// replace the 10s with window.tileSize
+			//~ newEntity.Pos = Vector4d(((long long)x / 10 + xoffset) * (long long)scale, ((long long)y / 10 + yoffset)* (long long)scale, 0, 0);
 			physen.Entities.push_back(newEntity);
 
 			lastClickPosX = x;
@@ -107,9 +108,9 @@ private:
 
 	bool entityPlacementMode = false;
 
-	int scale = 10000000;
-	int xoffset = 360;
-	int yoffset = 200;
+	//~ int scale = 10000000;
+	//~ int xoffset = 360;
+	//~ int yoffset = 200;
 
 	int lastClickPosX = 0;
 	int lastClickPosY = 0;
