@@ -13,13 +13,17 @@ public:
 	{
 		window.initialize(10.0f, ' ');
 		camera.Scale = 10000000;
-		camera.Pos = Vector4d(physen.Entities[0].Pos.x() / 1.2, physen.Entities[0].Pos.y() / 1.2, 0, 0);
+		CenterCameraOnPos(physen.Entities[0].Pos.x(), physen.Entities[0].Pos.y());
+	}
+	
+	void CenterCameraOnPos(double x, double y)
+	{
+		camera.Pos = Vector4d(x, y, 0, 0);
 	}
 
 	void Tick()
 	{
 		physen.Tick();
-		//~ camera.Pos = Vector4d(physen.Entities[1].Pos.x() - camera.Scale * 92, physen.Entities[1].Pos.y() - camera.Scale * 50, 0, 0);
 		CalculateTrails();
 		Draw();
 	}
@@ -28,16 +32,21 @@ public:
 	{
 		for (TrailPoint& tp : Trails)
 		{
-			window.setChar(round((tp.Pos.x() - camera.Pos.x()) / camera.Scale), round((tp.Pos.y() - camera.Pos.y()) / camera.Scale), '.');
-			window.setColor(round((tp.Pos.x() - camera.Pos.x()) / camera.Scale), round((tp.Pos.y() - camera.Pos.y()) / camera.Scale), tp.Color.x(), tp.Color.y(), tp.Color.z());
+			int x = round((tp.Pos.x() - camera.Pos.x()) / camera.Scale) + window.width / 2;
+			int y = round((tp.Pos.y() - camera.Pos.y()) / camera.Scale) + window.height / 2;
+			
+			window.setChar(x, y, '.');
+			window.setColor(x, y, tp.Color.x(), tp.Color.y(), tp.Color.z());
 		}
 
 		for (Entity& e : physen.Entities)
 		{
-			// TO-DO: automate x and y offsets so that the camera always starts with the sun in the center
-			window.setChar(round((e.Pos.x() - camera.Pos.x()) / camera.Scale), round((e.Pos.y() - camera.Pos.y()) / camera.Scale), e.Symbol);
-			window.setColor(round((e.Pos.x() - camera.Pos.x()) / camera.Scale), round((e.Pos.y() - camera.Pos.y()) / camera.Scale), e.Color.x(), e.Color.y(), e.Color.z());
-			// cout << e.Name << ' ' << round(e.Pos.x() / scale) - xoffset << ' ' << round(e.Pos.y() / scale) - yoffset << endl;
+			int x = round((e.Pos.x() - camera.Pos.x()) / camera.Scale) + window.width / 2;
+			int y = round((e.Pos.y() - camera.Pos.y()) / camera.Scale) + window.height / 2;
+			
+			window.setChar(x, y, e.Symbol);
+			window.setColor(x, y, e.Color.x(), e.Color.y(), e.Color.z());
+			//~ cout << e.Name << ' ' << x << ' ' << y << endl;
 		}
 		
 		window.draw();
@@ -63,10 +72,14 @@ public:
 			selectedEntity = Entity("Asteroid", Vector4d(), Vector4d(), 0.150e+12, '@');
 		}
 	}
+	
+	void ChangeTimestep(double factor)
+	{
+		physen.Simspeed(factor);
+	}
 
 	void OnClick(const int& x, const int& y)
 	{
-		cout << "OnClick: " << x << ' ' << y << ' ' << (x / 10) * camera.Scale + camera.Pos.x() << endl;
 		if (entityPlacementMode == false)
 		{
 			entityPlacementMode = true;
@@ -75,16 +88,14 @@ public:
 			newEntity.PhysicsEnabled = false;
 			newEntity.Velocity = Vector4d();
 			
-			// temporarily disabled
 			// replace the 10s with window.tileSize
-			//~ newEntity.Pos = Vector4d(((long long)x / 10 + xoffset) * (long long)scale, ((long long)y / 10 + yoffset)* (long long)scale, 0, 0);
 			newEntity.Pos = Vector4d((x / 10) * camera.Scale + camera.Pos.x(), (y / 10) * camera.Scale + camera.Pos.y(), 0, 0);
 			physen.Entities.push_back(newEntity);
 
 			lastClickPosX = x;
 			lastClickPosY = y;
 
-			// cout << "newEntity: " << newEntity.Pos.x() << ' ' << newEntity.Pos.y() << endl;
+			cout << "newEntity: " << newEntity.Pos.x() << ' ' << newEntity.Pos.y() << endl;
 		}
 		else
 		{
@@ -96,10 +107,7 @@ public:
 
 	void Clear()
 	{
-		for (Entity& e : physen.Entities)
-		{
-			Trails.clear();
-		}
+		Trails.clear();
 	}
 
 private:

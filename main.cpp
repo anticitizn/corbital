@@ -42,6 +42,14 @@ void processInput(SDL_Event event, SimulationWrapper& sim)
 						sim.SelectEntity(3);
 					break;
 					
+					case 52: // 4
+						sim.ChangeTimestep(5.0);
+					break;
+					
+					case 53: // 5
+						sim.ChangeTimestep(4.0);
+					break;
+										
 					case 119: // w
 						sim.camera.Pos = Vector4d(sim.camera.Pos.x(), sim.camera.Pos.y() - sim.camera.Scale, 0, 0);
 					break;
@@ -57,6 +65,19 @@ void processInput(SDL_Event event, SimulationWrapper& sim)
 					case 100: // d
 						sim.camera.Pos = Vector4d(sim.camera.Pos.x() + sim.camera.Scale, sim.camera.Pos.y(), 0, 0);
 					break;
+				}
+			break;
+			
+			case SDL_MOUSEWHEEL:
+				if (event.wheel.y > 0)
+				{
+					// scroll up
+					sim.camera.Scale /= 1.5;
+				}
+				else if (event.wheel.y < 0)
+				{
+					// scroll down
+					sim.camera.Scale *= 1.5;
 				}
 			break;
 		}
