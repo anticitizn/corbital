@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include <string>
 #include <src/PhysicsEngine.h>
 #include <src/Camera.h>
 #include <external/omar/src/omar.h>
@@ -115,7 +116,7 @@ public:
 
 private:
 	PhysicsEngine physen; // (10.0f, ' ')
-	Terminal window;
+	Terminal window = Terminal(10.0f, ' ', (string)"");
 
 	Entity selectedEntity = Entity("Asteroid", Vector3d(), Vector3d(), 0.150e+12, '@');
 	Entity newEntity;
