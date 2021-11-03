@@ -1,5 +1,5 @@
 #pragma once
-#include "external/Eigen/Core"
+#include <external/Eigen/Core>
 
 using namespace Eigen;
 using namespace std;
@@ -7,6 +7,6 @@ using namespace std;
 class Camera
 {
 public:
-	Vector4d Pos; // world pos
+	Vector3d Pos; // world pos
 	double Scale; // how many km one tile represents
 };
