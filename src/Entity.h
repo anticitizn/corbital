@@ -11,7 +11,7 @@ using namespace Eigen;
 class Entity
 {
 public:
-	Entity(string name, Vector3d pos, Vector3d velocity, unsigned long long mass, char symbol)
+	Entity(string name, Vector2d pos, Vector2d velocity, unsigned long long mass, char symbol)
 	{
 		Name = name;
 		Pos = pos;
@@ -22,7 +22,7 @@ public:
 		PhysicsEnabled = true;
 	}
 
-	Entity(string name, Vector3d pos, Vector3d velocity, unsigned long long mass, char symbol, Vector3d color)
+	Entity(string name, Vector2d pos, Vector2d velocity, unsigned long long mass, char symbol, Vector3d color)
 	{
 		Name = name;
 		Pos = pos;
@@ -33,7 +33,7 @@ public:
 		PhysicsEnabled = true;
 	}
 
-	Entity(string name, Vector3d pos, Vector3d velocity, unsigned long long mass, char symbol, bool physicsEnabled)
+	Entity(string name, Vector2d pos, Vector2d velocity, unsigned long long mass, char symbol, bool physicsEnabled)
 	{
 		Name = name;
 		Pos = pos;
@@ -55,8 +55,8 @@ public:
 	}
 	
 	string Name;
-	Vector3d Pos;
-	Vector3d Velocity;
+	Vector2d Pos;
+	Vector2d Velocity;
 	unsigned long long Mass;
 	Vector3d Color;
 	char Symbol;

@@ -51,19 +51,19 @@ void processInput(SDL_Event event, SimulationWrapper& sim)
 					break;
 										
 					case 119: // w
-						sim.camera.Pos = Vector3d(sim.camera.Pos.x(), sim.camera.Pos.y() - sim.camera.Scale, 0);
+						sim.camera.Pos = Vector2d(sim.camera.Pos.x(), sim.camera.Pos.y() - sim.camera.Scale);
 					break;
 					
 					case 97: // a
-						sim.camera.Pos = Vector3d(sim.camera.Pos.x() - sim.camera.Scale, sim.camera.Pos.y(), 0);
+						sim.camera.Pos = Vector2d(sim.camera.Pos.x() - sim.camera.Scale, sim.camera.Pos.y());
 					break;
 					
 					case 115: // s
-						sim.camera.Pos = Vector3d(sim.camera.Pos.x(), sim.camera.Pos.y() + sim.camera.Scale, 0);
+						sim.camera.Pos = Vector2d(sim.camera.Pos.x(), sim.camera.Pos.y() + sim.camera.Scale);
 					break;
 						
 					case 100: // d
-						sim.camera.Pos = Vector3d(sim.camera.Pos.x() + sim.camera.Scale, sim.camera.Pos.y(), 0);
+						sim.camera.Pos = Vector2d(sim.camera.Pos.x() + sim.camera.Scale, sim.camera.Pos.y());
 					break;
 				}
 			break;

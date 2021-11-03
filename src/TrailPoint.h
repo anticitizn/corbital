@@ -7,11 +7,11 @@ using namespace std;
 class TrailPoint
 {
 public:
-	TrailPoint(Vector3d pos, Vector3d color)
+	TrailPoint(Vector2d pos, Vector3d color)
 	{
 		Pos = pos;
 		Color = color;
 	}
-	Vector3d Pos;
+	Vector2d Pos;
 	Vector3d Color;
 };

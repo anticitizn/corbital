@@ -21,14 +21,14 @@ public:
 	
 	void CenterCameraOnPos(double x, double y)
 	{
-		camera.Pos = Vector3d(x, y, 0);
+		camera.Pos = Vector2d(x, y);
 	}
 
 	void Tick()
 	{
 		physen.Tick();
 		CalculateTrails();
-		//~ CenterCameraOnPos(physen.Entities[3].Pos.x(), physen.Entities[3].Pos.y());
+		//CenterCameraOnPos(physen.Entities[4].Pos.x(), physen.Entities[3].Pos.y());
 		Draw();
 	}
 
@@ -61,19 +61,19 @@ public:
 	{
 		if (num == 1)
 		{
-			selectedEntity = Entity("Asteroid", Vector3d(), Vector3d(), 0.150e+12, '@', Vector3d(230, 230, 230));
+			selectedEntity = Entity("Asteroid", Vector2d(), Vector2d(), 0.150e+12, '@', Vector3d(230, 230, 230));
 		}
 		else if (num == 2)
 		{
-			selectedEntity = Entity("Star", Vector3d(4500e+6f, 2500e+6f, 0), Vector3d(0, 0, 0), 1.989e+18, 'O', Vector3d(255, 180, 62));
+			selectedEntity = Entity("Star", Vector2d(4500e+6f, 2500e+6f), Vector2d(0, 0), 1.989e+18, 'O', Vector3d(255, 180, 62));
 		}
 		else if (num == 3)
 		{
-			selectedEntity = Entity("Giant star", Vector3d(4500e+6f, 2500e+6f, 0), Vector3d(0, 0, 0), 1.989e+20, '0', Vector3d(60, 60, 230));
+			selectedEntity = Entity("Giant star", Vector2d(4500e+6f, 2500e+6f), Vector2d(0, 0), 1.989e+20, '0', Vector3d(60, 60, 230));
 		}
 		else
 		{
-			selectedEntity = Entity("Asteroid", Vector3d(), Vector3d(), 0.150e+12, '@');
+			selectedEntity = Entity("Asteroid", Vector2d(), Vector2d(), 0.150e+12, '@');
 		}
 	}
 	
@@ -90,10 +90,10 @@ public:
 
 			newEntity = selectedEntity;
 			newEntity.PhysicsEnabled = false;
-			newEntity.Velocity = Vector3d();
+			newEntity.Velocity = Vector2d();
 			
 			// replace 10 with window.tileSize
-			newEntity.Pos = Vector3d(((x / 10) - window.getTileDimensions().x / 2) * camera.Scale + camera.Pos.x(), ((y / 10) - window.getTileDimensions().y / 2) * camera.Scale + camera.Pos.y(), 0);
+			newEntity.Pos = Vector2d(((x / 10) - window.getTileDimensions().x / 2) * camera.Scale + camera.Pos.x(), ((y / 10) - window.getTileDimensions().y / 2) * camera.Scale + camera.Pos.y());
 			physen.Entities.push_back(newEntity);
 
 			lastClickPosX = x;
@@ -104,7 +104,7 @@ public:
 		else
 		{
 			entityPlacementMode = false;
-			physen.Entities[physen.Entities.size() - 1].Velocity = Vector3d(x - lastClickPosX, y - lastClickPosY, 0) / 10;
+			physen.Entities[physen.Entities.size() - 1].Velocity = Vector2d(x - lastClickPosX, y - lastClickPosY) / 10;
 			physen.Entities[physen.Entities.size() - 1].PhysicsEnabled = true;
 		}
 	}
@@ -115,10 +115,10 @@ public:
 	}
 
 private:
-	PhysicsEngine physen; // (10.0f, ' ')
+	PhysicsEngine physen;
 	Terminal window = Terminal(10.0f, ' ', (string)"");
 
-	Entity selectedEntity = Entity("Asteroid", Vector3d(), Vector3d(), 0.150e+12, '@');
+	Entity selectedEntity = Entity("Asteroid", Vector2d(), Vector2d(), 0.150e+12, '@');
 	Entity newEntity;
 
 	bool entityPlacementMode = false;
