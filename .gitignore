@@ -1,4 +1,5 @@
 *.a
+*.o
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -11,6 +12,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 omar
+corbital
 Makefile
 .vscode
 build
